@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://scenes/goat.gd" type="Script" id=1]
+[ext_resource path="res://assets/monster-placeholder.png" type="Texture" id=2]
+
+[node name="Goat" type="Node2D"]
+
+script/script = ExtResource( 1 )
+peace_ratio = 2.0
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+
