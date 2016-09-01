@@ -1,23 +1,23 @@
-extends Node2D
+extends KinematicBody2D
 
 onready var debug = false
 onready var decoy = null
 onready var decoyer = load("res://scenes/player_decoy.tscn")
 
 onready var run = false
-onready var speed = 4.0
+export var speed = 6.0
 onready var player = null
 onready var run_direction = Vector2(0.0, 0.0)
 onready var run_limit = 0.0
 
-export var peace_ratio = 2.0
-onready var peace = 100.0
+export var health_ratio = 2.0
+onready var health = 100.0
 
 # give target and player reference to goat
-func give_target(p, lock_x = true):
-	# store player reference and start running
-	player = p
+func give_target(lock_x = true):
+	get_node("health_bar").hide()
 	run = true
+	get_node("CollisionShape2D").set_trigger(true)
 	# lock movement in axis
 	if(lock_x):
 		run_limit = player.get_pos().x
@@ -34,6 +34,12 @@ func give_target(p, lock_x = true):
 
 func _ready():
 	set_fixed_process(true)
+	add_to_group("goats")
+	player = get_node("/root/global").player_ref
+	# hiding health-bar and connecting signals
+	get_node("health_bar").hide()
+	get_node("health_bar").connect("top_percentage", self, "_when_health_max")
+	get_node("health_bar").connect("bottom_percentage", self, "_when_health_min")
 	# if scene is running as root, debug
 	var root = get_node("/root")
 	if(root.get_child(root.get_child_count()-1) == self):
@@ -43,24 +49,65 @@ func _ready():
 func _fixed_process(delta):
 	# run!
 	if(run):
-		set_pos(get_pos() + run_direction*speed)
-		# stop before player
+		move(run_direction*speed)
+		# check for collisions
+		var bodes = get_node("Area2D").get_overlapping_bodies() # bodes hahaha
+		for bode in bodes:
+			if(bode.is_in_group("goats") and bode != self):
+				bode._bump()
+				_bump()
+				break
+			elif(bode.is_in_group("player")):
+				if (player.has_method("hit")):
+					player.hit()
+		# stop before player axis
 		if(run_direction == Vector2(1.0, 0.0)):
 			if(get_pos().x >= run_limit or get_pos().x >= player.get_pos().x):
 				run = false
+				get_node("CollisionShape2D").set_trigger(false)
 		if(run_direction == Vector2(-1.0, 0.0)):
 			if(get_pos().x <= run_limit or get_pos().x <= player.get_pos().x):
 				run = false
+				get_node("CollisionShape2D").set_trigger(false)
 		if(run_direction == Vector2(0.0, 1.0)):
 			if(get_pos().y >= run_limit or get_pos().y >= player.get_pos().y):
 				run = false
+				get_node("CollisionShape2D").set_trigger(false)
 		if(run_direction == Vector2(0.0, -1.0)):
 			if(get_pos().y <= run_limit or get_pos().y <= player.get_pos().y):
 				run = false
+				get_node("CollisionShape2D").set_trigger(false)
+	else: #being pacified
+		if(!get_node("health_bar").is_visible()):
+			get_node("health_bar").set_health_scale(0.5)
+			get_node("health_bar").show()
+		if(player):
+			if((player.get_pos()-get_pos()).length() <= 36.0):
+				if(!player.has_method("is_moving") or player.is_moving() == false):
+					get_node("health_bar").set_health_scale_relative(0.006)
+				else:
+					get_node("health_bar").set_health_scale_relative(-0.004)
+			else:
+				get_node("health_bar").set_health_scale_relative(-0.004)
+		
 	# create player decoy just to test goat movement
 	if(debug):
 		if Input.is_mouse_button_pressed(1):
 			if(decoy == null):
 				decoy = decoyer.instance()
 				get_tree().get_root().add_child(decoy)
-			give_target(decoy, Input.is_key_pressed(KEY_X))
+				player = decoy
+			give_target(Input.is_key_pressed(KEY_X))
+
+func _when_health_max():
+	get_node("/root/global").fire_time += 1.0
+	get_node("/root/global").score += 10.0
+	queue_free()
+
+func _when_health_min():
+	get_node("/root/global").fire_time -= 2.0
+	queue_free()
+
+func _bump():
+	get_node("/root/global").fire_time -= 2.0
+	queue_free()

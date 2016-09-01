@@ -1,15 +1,60 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/goat.gd" type="Script" id=1]
 [ext_resource path="res://assets/monster-placeholder.png" type="Texture" id=2]
+[ext_resource path="res://scenes/goat_health_bar.tscn" type="PackedScene" id=3]
 
-[node name="Goat" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=1]
 
+custom_solver_bias = 0.0
+extents = Vector2( 15, 15 )
+
+[node name="Goat" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 2
+collision/mask = 0
+collision/margin = 0.08
 script/script = ExtResource( 1 )
-peace_ratio = 2.0
+speed = 6.0
+health_ratio = 2.0
 
 [node name="Sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
+
+[node name="health_bar" parent="." instance=ExtResource( 3 )]
+
+visibility/visible = false
+transform/pos = Vector2( -16, -24 )
+z/z = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 0.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 2
+collision/mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 

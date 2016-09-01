@@ -5,7 +5,7 @@ onready var max_scale = 1.88
 
 onready var current_percentage = 0.5
 
-func set_scale(percentage):
+func set_health_scale(percentage):
 	var new_scale = min_scale + (max_scale-min_scale)*(percentage)
 	if(new_scale <= min_scale):
 		new_scale = min_scale
@@ -16,7 +16,7 @@ func set_scale(percentage):
 	current_percentage = (new_scale-min_scale) / (max_scale-min_scale)
 	get_node("background").set_scale(Vector2(new_scale, 1.0))
 
-func set_scale_relative(percentage):
+func set_health_scale_relative(percentage):
 	percentage += current_percentage
 	var new_scale = min_scale + (max_scale-min_scale)*(percentage)
 	if(new_scale <= min_scale):
@@ -41,7 +41,8 @@ func _ready():
 		set_fixed_process(true)
 
 func _fixed_process(delta):
+	# debug
 	if Input.is_mouse_button_pressed(1):
-		set_scale_relative(0.01)
+		set_health_scale_relative(0.01)
 	else:
-		set_scale_relative(-0.01)
+		set_health_scale_relative(-0.01)
