@@ -9,6 +9,7 @@ export var speed = 6.0
 onready var player = null
 onready var run_direction = Vector2(0.0, 0.0)
 onready var run_limit = 0.0
+onready var on_fire = false
 
 export var health_ratio = 2.0
 onready var health = 100.0
@@ -35,6 +36,7 @@ func give_target(lock_x = true):
 func _ready():
 	set_fixed_process(true)
 	add_to_group("goats")
+	get_node("fire_sprite").hide()
 	player = get_node("/root/global").player_ref
 	# hiding health-bar and connecting signals
 	get_node("health_bar").hide()
@@ -53,13 +55,15 @@ func _fixed_process(delta):
 		# check for collisions
 		var bodes = get_node("Area2D").get_overlapping_bodies() # bodes hahaha
 		for bode in bodes:
-			if(bode.is_in_group("goats") and bode != self):
+			if(bode.is_in_group("goats") and bode != self): # both goats bump
 				bode._bump()
 				_bump()
 				break
-			elif(bode.is_in_group("player")):
+			elif(bode.is_in_group("player")): # hit player
 				if (player.has_method("hit")):
 					player.hit()
+			elif(bode.is_in_group("fire")): # catch fire and gain more points (Im not really sure why)
+				on_fire = true
 		# stop before player axis
 		if(run_direction == Vector2(1.0, 0.0)):
 			if(get_pos().x >= run_limit or get_pos().x >= player.get_pos().x):
@@ -83,7 +87,7 @@ func _fixed_process(delta):
 			get_node("health_bar").show()
 		if(player):
 			if((player.get_pos()-get_pos()).length() <= 36.0):
-				if(!player.has_method("is_moving") or player.is_moving() == false):
+				if(player.has_method("is_moving") and player.is_moving() == false):
 					get_node("health_bar").set_health_scale_relative(0.006)
 				else:
 					get_node("health_bar").set_health_scale_relative(-0.004)
@@ -101,7 +105,9 @@ func _fixed_process(delta):
 
 func _when_health_max():
 	get_node("/root/global").fire_time += 1.0
-	get_node("/root/global").score += 10.0
+	get_node("/root/global").score += 1000.0
+	if(on_fire):
+		get_node("/root/global").score += 250.0
 	queue_free()
 
 func _when_health_min():
@@ -109,5 +115,7 @@ func _when_health_min():
 	queue_free()
 
 func _bump():
-	get_node("/root/global").fire_time -= 2.0
+	get_node("/root/global").score += 750.0
+	if(on_fire):
+		get_node("/root/global").score += 250.0
 	queue_free()

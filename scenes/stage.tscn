@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://scenes/stage.gd" type="Script" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/goat.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/grass.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/fire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/hud.tscn" type="PackedScene" id=6]
 
 [node name="Stage" type="Control"]
 
@@ -209,5 +210,7 @@ transform/pos = Vector2( 336, 272 )
 [node name="Fire" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 176, 176 )
+
+[node name="hud" parent="." instance=ExtResource( 6 )]
 
 

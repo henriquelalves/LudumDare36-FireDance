@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/goat.gd" type="Script" id=1]
 [ext_resource path="res://assets/monster-placeholder.png" type="Texture" id=2]
 [ext_resource path="res://scenes/goat_health_bar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/fire-placeholder.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -22,7 +23,7 @@ script/script = ExtResource( 1 )
 speed = 6.0
 health_ratio = 2.0
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="goat_sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
 
@@ -56,5 +57,10 @@ _update_shape_index = 0
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="fire_sprite" type="Sprite" parent="."]
+
+visibility/behind_parent = true
+texture = ExtResource( 4 )
 
 
