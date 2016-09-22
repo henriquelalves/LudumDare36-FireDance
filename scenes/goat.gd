@@ -5,7 +5,7 @@ onready var decoy = null
 onready var decoyer = load("res://scenes/player_decoy.tscn")
 
 onready var run = false
-export var speed = 6.0
+export var speed = 3.0
 onready var player = null
 onready var run_direction = Vector2(0.0, 0.0)
 onready var run_limit = 0.0
@@ -24,14 +24,18 @@ func give_target(lock_x = true):
 		run_limit = player.get_pos().x
 		if(player.get_pos().x > get_pos().x):
 			run_direction = Vector2(1.0, 0.0)
+			get_node("AnimationPlayer").play("move_right",1,2)
 		else:
 			run_direction = Vector2(-1.0, 0.0)
+			get_node("AnimationPlayer").play("move_left",1,2)
 	else:
 		run_limit = player.get_pos().y
 		if(player.get_pos().y > get_pos().y):
 			run_direction = Vector2(0.0, 1.0)
+			get_node("AnimationPlayer").play("move_down",1,2)
 		else:
 			run_direction = Vector2(0.0, -1.0)
+			get_node("AnimationPlayer").play("move_up",1,2)
 
 func _ready():
 	set_fixed_process(true)
@@ -69,18 +73,22 @@ func _fixed_process(delta):
 			if(get_pos().x >= run_limit or get_pos().x >= player.get_pos().x):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
+				get_node("AnimationPlayer").play("sit")
 		if(run_direction == Vector2(-1.0, 0.0)):
 			if(get_pos().x <= run_limit or get_pos().x <= player.get_pos().x):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
+				get_node("AnimationPlayer").play("sit")
 		if(run_direction == Vector2(0.0, 1.0)):
 			if(get_pos().y >= run_limit or get_pos().y >= player.get_pos().y):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
+				get_node("AnimationPlayer").play("sit")
 		if(run_direction == Vector2(0.0, -1.0)):
 			if(get_pos().y <= run_limit or get_pos().y <= player.get_pos().y):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
+				get_node("AnimationPlayer").play("sit")
 	else: #being pacified
 		if(!get_node("health_bar").is_visible()):
 			get_node("health_bar").set_health_scale(0.5)

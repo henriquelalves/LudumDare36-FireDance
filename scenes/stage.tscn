@@ -47,6 +47,7 @@ stretch_mode = 0
 
 [node name="Fire_light" type="TextureFrame" parent="Background"]
 
+visibility/opacity = 0.63
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
