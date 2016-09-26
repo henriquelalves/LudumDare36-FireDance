@@ -37,4 +37,4 @@ func _fixed_process(delta):
 			if(decoy == null):
 				decoy = decoyer.instance()
 				get_tree().get_root().add_child(decoy)
-			set_goat_timer(2.0, false)
+			set_goat_timer(2.0, false, self)

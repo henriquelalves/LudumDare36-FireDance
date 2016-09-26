@@ -8,6 +8,10 @@ onready var spawn_timer = 0.0
 onready var spawn_timer_limit = 3.0
 onready var fast_spawn = false
 
+onready var fire_blink_level = 3.0
+onready var fire_timer = 0.0
+onready var fire_timer_limit = 1.0
+
 func spawn_goat():
 	var r_direction = randi() % 2 # 0 = vertical, 1 = horizontal
 	# search for spawning grass
@@ -42,10 +46,12 @@ func _ready():
 	pass
 
 func _fixed_process(delta):
+	# global stuff
 	global.fire_time -= delta
 	global.total_time += delta
 	global.score += delta*100
 	
+	# Spawn goat
 	spawn_timer += delta
 	if(spawn_timer >= spawn_timer_limit):
 		spawn_timer -= spawn_timer_limit
@@ -53,8 +59,24 @@ func _fixed_process(delta):
 	
 	if (fast_spawn == false):
 		if global.total_time >= 30.0:
+			# spawn goats faster
 			fast_spawn = true
 			spawn_timer = 1.5
+			# light is fading away
+			fire_blink_level = 2.0
+	
+	# Fire light "animation"
+	fire_timer += delta
+	if(fire_timer > fire_timer_limit):
+		fire_timer -= fire_timer_limit
+		#print(0.20*fire_blink_level) # BUG DO FLOAT
+		var fb = float(int((0.2*fire_blink_level)*100.0)/100.0)
+		var op = float(int(get_node("Background/Fire_light").get_opacity()*100.0)/100.0)
+		if(op == fb):
+			get_node("Background/Fire_light").set_opacity(0.20*(fire_blink_level+1.0))
+		else:
+			get_node("Background/Fire_light").set_opacity(0.20*(fire_blink_level))
+
 	
 	if debug:
 		if Input.is_mouse_button_pressed(1):
