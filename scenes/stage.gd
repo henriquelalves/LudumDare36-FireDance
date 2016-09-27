@@ -5,7 +5,7 @@ onready var debug = false
 onready var global = get_node("/root/global")
 
 onready var spawn_timer = 0.0
-onready var spawn_timer_limit = 3.0
+onready var spawn_timer_limit = 1.0
 onready var fast_spawn = false
 
 onready var fire_blink_level = 3.0
@@ -29,10 +29,9 @@ func spawn_goat():
 			lane = get_node("top")
 		grass = lane.get_children()[randi()%lane.get_children().size()]
 	
-	grass.set_goat_timer(0.5, r_direction, self)
+	grass.set_goat_timer(1.0, r_direction, self)
 
 func _ready():
-	randomize()
 	set_fixed_process(true)
 	
 	global.fire_time = 60.0
@@ -61,7 +60,7 @@ func _fixed_process(delta):
 		if global.total_time >= 30.0:
 			# spawn goats faster
 			fast_spawn = true
-			spawn_timer = 1.5
+			spawn_timer /= 2.0
 			# light is fading away
 			fire_blink_level = 2.0
 	

@@ -6,3 +6,6 @@ onready var fire_time = 0.0
 onready var total_time = 0.0
 
 onready var player_ref = null
+
+func _ready():
+	randomize()

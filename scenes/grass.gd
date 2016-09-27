@@ -13,9 +13,12 @@ func set_goat_timer(t, l, r):
 	time_to_spawn = t
 	lock = l
 	spawner_reference = r
+	get_node("AnimationPlayer").play("moving")
 
 func _ready():
 	set_fixed_process(true)
+	# random frame of animation
+	get_node("Sprite").set_frame(randi()%2)
 	# test if it is debugging
 	var root = get_node("/root")
 	if(root.get_child(root.get_child_count()-1) == self):
@@ -27,6 +30,7 @@ func _fixed_process(delta):
 	if(time_to_spawn > 0.0):
 		time_to_spawn -= delta
 		if(time_to_spawn <= 0.0):
+			get_node("AnimationPlayer").stop()
 			time_to_spawn = 0.0
 			var goat = goater.instance()
 			spawner_reference.add_child(goat)

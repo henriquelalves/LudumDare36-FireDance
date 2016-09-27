@@ -5,10 +5,10 @@
 [ext_resource path="res://assets/fire_light.png" type="Texture" id=3]
 [ext_resource path="res://assets/grass.png" type="Texture" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/goat.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/grass.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/fire.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/hud.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/grass.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/fire.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/hud.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/butterfly.tscn" type="PackedScene" id=9]
 
 [node name="Stage" type="Control"]
 
@@ -87,10 +87,7 @@ vframes = 2
 [node name="Player" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 155.73, 102.306 )
-
-[node name="Goat" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 157.388, 221.823 )
+speed = 2.0
 
 [node name="top" type="Control" parent="."]
 
@@ -105,39 +102,39 @@ margin/right = 40.0
 margin/bottom = 40.0
 __meta__ = { "_edit_lock_":true }
 
-[node name="grass" parent="top" instance=ExtResource( 7 )]
+[node name="grass" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 48, 48 )
 
-[node name="grass1" parent="top" instance=ExtResource( 7 )]
+[node name="grass1" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 80, 48 )
 
-[node name="grass2" parent="top" instance=ExtResource( 7 )]
+[node name="grass2" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 112, 48 )
 
-[node name="grass3" parent="top" instance=ExtResource( 7 )]
+[node name="grass3" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 144, 48 )
 
-[node name="grass4" parent="top" instance=ExtResource( 7 )]
+[node name="grass4" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 176, 48 )
 
-[node name="grass5" parent="top" instance=ExtResource( 7 )]
+[node name="grass5" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 208, 48 )
 
-[node name="grass6" parent="top" instance=ExtResource( 7 )]
+[node name="grass6" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 240, 48 )
 
-[node name="grass7" parent="top" instance=ExtResource( 7 )]
+[node name="grass7" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 272, 48 )
 
-[node name="grass8" parent="top" instance=ExtResource( 7 )]
+[node name="grass8" parent="top" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 304, 48 )
 
@@ -154,39 +151,39 @@ margin/right = 40.0
 margin/bottom = 40.0
 __meta__ = { "_edit_lock_":true }
 
-[node name="grass" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 48, 304 )
 
-[node name="grass1" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass1" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 80, 304 )
 
-[node name="grass2" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass2" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 112, 304 )
 
-[node name="grass3" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass3" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 144, 304 )
 
-[node name="grass4" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass4" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 176, 304 )
 
-[node name="grass5" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass5" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 208, 304 )
 
-[node name="grass6" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass6" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 240, 304 )
 
-[node name="grass7" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass7" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 272, 304 )
 
-[node name="grass8" parent="bottom" instance=ExtResource( 7 )]
+[node name="grass8" parent="bottom" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 304, 304 )
 
@@ -203,31 +200,31 @@ margin/right = 40.0
 margin/bottom = 40.0
 __meta__ = { "_edit_lock_":true }
 
-[node name="grass" parent="left" instance=ExtResource( 7 )]
+[node name="grass" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 80 )
 
-[node name="grass1" parent="left" instance=ExtResource( 7 )]
+[node name="grass1" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 112 )
 
-[node name="grass2" parent="left" instance=ExtResource( 7 )]
+[node name="grass2" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 144 )
 
-[node name="grass3" parent="left" instance=ExtResource( 7 )]
+[node name="grass3" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 176 )
 
-[node name="grass4" parent="left" instance=ExtResource( 7 )]
+[node name="grass4" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 208 )
 
-[node name="grass5" parent="left" instance=ExtResource( 7 )]
+[node name="grass5" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 240 )
 
-[node name="grass6" parent="left" instance=ExtResource( 7 )]
+[node name="grass6" parent="left" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 16, 272 )
 
@@ -244,38 +241,42 @@ margin/right = 40.0
 margin/bottom = 40.0
 __meta__ = { "_edit_lock_":true }
 
-[node name="grass" parent="right" instance=ExtResource( 7 )]
+[node name="grass" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 80 )
 
-[node name="grass1" parent="right" instance=ExtResource( 7 )]
+[node name="grass1" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 112 )
 
-[node name="grass2" parent="right" instance=ExtResource( 7 )]
+[node name="grass2" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 144 )
 
-[node name="grass3" parent="right" instance=ExtResource( 7 )]
+[node name="grass3" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 176 )
 
-[node name="grass4" parent="right" instance=ExtResource( 7 )]
+[node name="grass4" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 208 )
 
-[node name="grass5" parent="right" instance=ExtResource( 7 )]
+[node name="grass5" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 240 )
 
-[node name="grass6" parent="right" instance=ExtResource( 7 )]
+[node name="grass6" parent="right" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 336, 272 )
 
-[node name="Fire" parent="." instance=ExtResource( 8 )]
+[node name="Fire" parent="." instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 175.12, 176 )
 
-[node name="hud" parent="." instance=ExtResource( 9 )]
+[node name="hud" parent="." instance=ExtResource( 8 )]
+
+[node name="Node2D" parent="." instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 80, 112 )
 
 

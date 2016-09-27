@@ -8,7 +8,6 @@ onready var run = false
 export var speed = 3.0
 onready var player = null
 onready var run_direction = Vector2(0.0, 0.0)
-onready var run_limit = 0.0
 onready var on_fire = false
 
 export var health_ratio = 2.0
@@ -21,7 +20,6 @@ func give_target(lock_x = true):
 	get_node("CollisionShape2D").set_trigger(true)
 	# lock movement in axis
 	if(lock_x):
-		run_limit = player.get_pos().x
 		if(player.get_pos().x > get_pos().x):
 			run_direction = Vector2(1.0, 0.0)
 			get_node("AnimationPlayer").play("move_right",1,2)
@@ -29,7 +27,6 @@ func give_target(lock_x = true):
 			run_direction = Vector2(-1.0, 0.0)
 			get_node("AnimationPlayer").play("move_left",1,2)
 	else:
-		run_limit = player.get_pos().y
 		if(player.get_pos().y > get_pos().y):
 			run_direction = Vector2(0.0, 1.0)
 			get_node("AnimationPlayer").play("move_down",1,2)
@@ -70,37 +67,48 @@ func _fixed_process(delta):
 				on_fire = true
 		# stop before player axis
 		if(run_direction == Vector2(1.0, 0.0)):
-			if(get_pos().x >= run_limit or get_pos().x >= player.get_pos().x):
+			if(get_pos().x >= player.get_pos().x):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
 				get_node("AnimationPlayer").play("sit")
 		if(run_direction == Vector2(-1.0, 0.0)):
-			if(get_pos().x <= run_limit or get_pos().x <= player.get_pos().x):
+			if(get_pos().x <= player.get_pos().x):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
 				get_node("AnimationPlayer").play("sit")
 		if(run_direction == Vector2(0.0, 1.0)):
-			if(get_pos().y >= run_limit or get_pos().y >= player.get_pos().y):
+			if(get_pos().y >= player.get_pos().y):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
 				get_node("AnimationPlayer").play("sit")
 		if(run_direction == Vector2(0.0, -1.0)):
-			if(get_pos().y <= run_limit or get_pos().y <= player.get_pos().y):
+			if(get_pos().y <= player.get_pos().y):
 				run = false
 				get_node("CollisionShape2D").set_trigger(false)
 				get_node("AnimationPlayer").play("sit")
 	else: #being pacified
 		if(!get_node("health_bar").is_visible()):
-			get_node("health_bar").set_health_scale(0.5)
+			get_node("health_bar").set_health_scale(1.0)
 			get_node("health_bar").show()
-		if(player):
-			if((player.get_pos()-get_pos()).length() <= 36.0):
-				if(player.has_method("is_moving") and player.is_moving() == false):
-					get_node("health_bar").set_health_scale_relative(0.006)
-				else:
-					get_node("health_bar").set_health_scale_relative(-0.004)
-			else:
-				get_node("health_bar").set_health_scale_relative(-0.004)
+		
+		get_node("health_bar").set_health_scale_relative(-0.004)
+		
+#		I'm leaving this code here for posterity; it was a discarded
+#		idea of a mechanic in which the player would "pacify" goats by
+#		standing still close to them. This wasn't working - the game
+#		was becoming dull, even for the simple idea I was trying to implement.
+#		That's when I created the butterfly and noticed the game, if not 
+#		fun, became at least something resambling more like a mini-game
+#		of some sorts.
+
+#		if(player):
+#			if((player.get_pos()-get_pos()).length() <= 36.0):
+#				if(player.has_method("is_moving") and player.is_moving() == false):
+#					get_node("health_bar").set_health_scale_relative(0.006)
+#				else:
+#					get_node("health_bar").set_health_scale_relative(-0.004)
+#			else:
+#				get_node("health_bar").set_health_scale_relative(-0.004)
 		
 	# create player decoy just to test goat movement
 	if(debug):
@@ -111,19 +119,12 @@ func _fixed_process(delta):
 				player = decoy
 			give_target(Input.is_key_pressed(KEY_X))
 
-func _when_health_max():
-	get_node("/root/global").fire_time += 1.0
-	get_node("/root/global").score += 1000.0
-	if(on_fire):
-		get_node("/root/global").score += 250.0
-	queue_free()
 
 func _when_health_min():
-	get_node("/root/global").fire_time -= 2.0
 	queue_free()
 
 func _bump():
-	get_node("/root/global").score += 750.0
+	get_node("/root/global").score += 500.0
 	if(on_fire):
-		get_node("/root/global").score += 250.0
+		get_node("/root/global").score += 250.0 # small secret point bonus here
 	queue_free()
