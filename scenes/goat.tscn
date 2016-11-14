@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 15, 15 )
+extents = Vector2( 12, 15 )
 
 [sub_resource type="Animation" id=2]
 
@@ -99,7 +99,7 @@ texture = ExtResource( 2 )
 flip_h = true
 vframes = 4
 hframes = 3
-frame = 5
+frame = 3
 
 [node name="health_bar" parent="." instance=ExtResource( 3 )]
 

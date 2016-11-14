@@ -86,7 +86,7 @@ vframes = 2
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 155.73, 102.306 )
+transform/pos = Vector2( 144, 112 )
 speed = 2.0
 
 [node name="top" type="Control" parent="."]

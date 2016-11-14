@@ -14,6 +14,8 @@ var label_string = "Illusion Fisherman"
 func _ready():
 	set_fixed_process(true)
 	get_node("Label").set_text("")
+	add_user_signal("finished_logo")
+	get_node("Sprite/AnimationPlayer").connect("finished", self, "_finished_logo")
 	pass
 
 func _fixed_process(delta):
@@ -47,3 +49,10 @@ func _label_run(delta):
 			get_node("Label").set_text(label_string)
 			get_node("Label").add_color_override("font_color", Color(colors[0]))
 			time = 0
+
+func _finished_logo():
+	# fadeout
+	if(get_node("Sprite/AnimationPlayer").get_current_animation() == "flicker"):
+		get_node("Sprite/AnimationPlayer").play("fade_out")
+	if(get_node("Sprite/AnimationPlayer").get_current_animation() == "fade_out"):
+		emit_signal("finished_logo")

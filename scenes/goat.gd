@@ -41,7 +41,6 @@ func _ready():
 	player = get_node("/root/global").player_ref
 	# hiding health-bar and connecting signals
 	get_node("health_bar").hide()
-	get_node("health_bar").connect("top_percentage", self, "_when_health_max")
 	get_node("health_bar").connect("bottom_percentage", self, "_when_health_min")
 	# if scene is running as root, debug
 	var root = get_node("/root")
