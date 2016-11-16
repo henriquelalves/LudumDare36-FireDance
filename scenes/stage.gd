@@ -75,8 +75,6 @@ func _fixed_process(delta):
 			get_node("Background/Fire_light").set_opacity(0.20*(fire_blink_level+1.0))
 		else:
 			get_node("Background/Fire_light").set_opacity(0.20*(fire_blink_level))
-
-	
 	if debug:
 		if Input.is_mouse_button_pressed(1):
 			spawn_goat()

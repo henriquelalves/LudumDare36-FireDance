@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://scenes/menu_options.gd" type="Script" id=1]
+[ext_resource path="res://assets/cave_font.fnt" type="BitmapFont" id=2]
 
 [node name="menu_options" type="Control"]
 
@@ -8,10 +9,21 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 47.0
-margin/top = 32.0
+margin/left = 58.0
+margin/top = 34.0
 margin/right = 180.0
-margin/bottom = 127.0
+margin/bottom = 129.0
 script/script = ExtResource( 1 )
+options = "PLAY\nEXIT"
+orientation = 1
+offset = 2
+options_font = ExtResource( 2 )
+signal_argument = 0
+initial_option = 1
+cursor_side = 2
+cursor_offset = 0
+blinking_cursor_rate = 0.5
+options_color = Color( 1, 1, 1, 1 )
+cursor_color = Color( 1, 1, 1, 1 )
 
 

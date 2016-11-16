@@ -18,7 +18,7 @@ func hit():
 	pass
 
 func game_over():
-	get_tree().change_scene("res://scenes/game_over.tscn")
+	global.change_scene(get_parent(), "res://scenes/game_over.tscn")
 
 func _ready():
 	set_fixed_process(true)
@@ -51,4 +51,3 @@ func _fixed_process(delta):
 			moving = false
 			if(get_node("AnimationPlayer").get_current_animation() != "dance"):
 				get_node("AnimationPlayer").set_current_animation("dance")
-	

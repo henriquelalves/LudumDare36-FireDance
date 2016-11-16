@@ -19,6 +19,11 @@ tracks/0/path = NodePath("..:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 1.0, 0.8, 0.6, 0.4, 0.2, 0.0 ] }
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 1.2 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"finished" } ] }
 
 [sub_resource type="Animation" id=2]
 

@@ -56,3 +56,6 @@ func _finished_logo():
 		get_node("Sprite/AnimationPlayer").play("fade_out")
 	if(get_node("Sprite/AnimationPlayer").get_current_animation() == "fade_out"):
 		emit_signal("finished_logo")
+
+func finished():
+	get_node("/root/global").change_scene(self, "res://scenes/main_menu.tscn")
